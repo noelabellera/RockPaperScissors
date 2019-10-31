@@ -7,10 +7,11 @@ class App extends Component {
     this.state = {
       playerScore: 0,
       compScore: 0,
-      choices: ['rock', 'papper', 'scissors'],
+      choices: ['rock', 'paper', 'scissors'],
       choicesResults: [],
       compChoice: '',
-      playerChoice: ''
+      playerChoice: '',
+      results: ''
     }
   }
 
@@ -24,18 +25,29 @@ class App extends Component {
     console.log(this.state.compChoice)
   }
 
-
-
   playerChoice = (choice) => {
     this.setState({
       playerChoice: choice
-    }, () => {
-      console.log(this.state.playerChoice)
     })
+    this.getCompChoice()
   }
 
   playerChoiceRock = () => {
     this.playerChoice('rock');
+    if(this.state.compChoice === "rock") {
+      this.setState({
+        results: 'Game is a tie'
+      })
+    } else if(this.state.compChoice === 'paper') {
+      this.setState({
+        results: 'You lose!'
+      })
+    } else {
+      this.setState({
+        results: 'You win!'
+      })
+    }
+    console.log(this.state.results)
   }
 
   playerChoiceScissors = () => {
@@ -52,8 +64,10 @@ class App extends Component {
     <div className="App">
       <h1>Rock-Paper-Scissors</h1>
       <h2>Your Choice: {this.state.playerChoice}</h2>
+      <h2>Comp Choice: {this.state.compChoice}</h2>
       <h2>player Score: {this.state.playerScore}</h2>
       <h2>computer Score: {this.state.compScore}</h2>
+      <h2>Game Result: {this.state.results}</h2>
       <button onClick={this.getCompChoice}>Check</button>
       <button onClick={this.playerChoiceRock}>Rock</button>
       <button onClick={this.playerChoiceScissors}>Scissors</button>
