@@ -8,17 +8,23 @@ class App extends Component {
       playerScore: 0,
       compScore: 0,
       choices: ['rock', 'papper', 'scissors'],
+      choicesResults: [],
       compChoice: '',
       playerChoice: ''
     }
   }
 
-  getCompChoice = () => {
+  getCompChoice = () =>  {
+
+    let choice = this.state.choices[Math.floor(Math.random()*this.state.choices.length)]
     this.setState({
-      compScore: this.state.compScore + 1
+      compChoice: choice
     })
+
     console.log(this.state.compChoice)
   }
+
+
 
   playerChoice = (choice) => {
     this.setState({
