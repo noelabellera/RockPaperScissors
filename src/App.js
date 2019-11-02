@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
 
 class App extends Component {
@@ -8,46 +8,23 @@ class App extends Component {
       playerScore: 0,
       compScore: 0,
       choices: ['rock', 'paper', 'scissors'],
-      choicesResults: [],
       compChoice: '',
       playerChoice: '',
       results: ''
     }
   }
 
-  getCompChoice = () =>  {
 
-    let choice = this.state.choices[Math.floor(Math.random()*this.state.choices.length)]
-    this.setState({
-      compChoice: choice
-    })
 
-    console.log(this.state.compChoice)
-  }
 
-  playerChoice = (choice) => {
-    this.setState({
-      playerChoice: choice
-    })
-    this.getCompChoice()
-  }
 
   playerChoiceRock = () => {
-    this.playerChoice('rock');
-    if(this.state.compChoice === "rock") {
-      this.setState({
-        results: 'Game is a tie'
-      })
-    } else if(this.state.compChoice === 'paper') {
-      this.setState({
-        results: 'You lose!'
-      })
-    } else {
-      this.setState({
-        results: 'You win!'
-      })
-    }
-    console.log(this.state.results)
+    // this.playerChoice('rock');
+    this.setState({
+      playerChoice: 'rock'
+    })
+    this.getCompChoice()
+    console.log(this.state)
   }
 
   playerChoiceScissors = () => {
@@ -58,24 +35,46 @@ class App extends Component {
     this.playerChoice('paper');
   }
 
-
-  render() {
-  return (
-    <div className="App">
-      <h1>Rock-Paper-Scissors</h1>
-      <h2>Your Choice: {this.state.playerChoice}</h2>
-      <h2>Comp Choice: {this.state.compChoice}</h2>
-      <h2>player Score: {this.state.playerScore}</h2>
-      <h2>computer Score: {this.state.compScore}</h2>
-      <h2>Game Result: {this.state.results}</h2>
-      <button onClick={this.getCompChoice}>Check</button>
-      <button onClick={this.playerChoiceRock}>Rock</button>
-      <button onClick={this.playerChoiceScissors}>Scissors</button>
-      <button onClick={this.playerChoicePaper}>Paper</button>
-      
-    </div>
-  );
+  checkWin = () => {
+    if (this.state.compChoice === 'rock' && this.state.playerChoice === 'rock') {
+      this.setState({
+        results: 'Game is a tie'
+      })
+    }
   }
-}
 
-export default App;
+  playerChoice = (choice) => {
+    this.setState({
+      playerChoice: choice
+    })
+    this.getCompChoice()
+    this.checkWin()
+    console.log(this.state)
+  }
+
+  getCompChoice = () => {
+    let choice = this.state.choices[Math.floor(Math.random() * this.state.choices.length)]
+    this.setState({
+      compChoice: choice
+    })
+  }
+
+
+    render() {
+      return (
+        <div className="App">
+          <h1>Rock-Paper-Scissors</h1>
+          <h2>Your Choice: {this.state.playerChoice}</h2>
+          <h2>Comp Choice: {this.state.compChoice}</h2>
+          <h2>player Score: {this.state.playerScore}</h2>
+          <h2>computer Score: {this.state.compScore}</h2>
+          <h2>Game Result: {this.state.results}</h2>
+          <img onClick={this.playerChoiceRock} className="gameImg" src="https://i.imgur.com/qqVc9Et.png" alt="rock"></img>
+          <img onClick={this.playerChoiceScissors} className="gameImg" src="https://i.imgur.com/Q3otk9o.png" alt="paper"></img>
+          <img onClick={this.playerChoicePaper} className="gameImg" src="https://i.imgur.com/prW2ubW.png" alt="scissor"></img>
+        </div>
+      );
+    }
+  }
+
+  export default App;
